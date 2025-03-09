@@ -4,7 +4,7 @@ A collection of currently Pending suggestions by Glitchkat10 (kierkat10) for the
 Requires Cryptid.
 ## Additions
 ### Jokers
-Buddy Jolly
-Brick by Brick
+- Buddy Jolly
+- Brick by Brick
 ### Decks
-Weezer Deck
+- Weezer Deck
