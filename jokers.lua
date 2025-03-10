@@ -14,7 +14,7 @@ SMODS.Joker{
 	dependencies = {
 		items = { "set_cry_m" } -- buddy jolly is an m joker
 	},
-	config = { extra = { chips = 0, mult = 0, chips_mod = 20, mult_mod = 4, jollies = 4 } },
+	config = { extra = { chips = 0, mult = 0, chips_mod = 16, mult_mod = 4, jollies = 4 } },
 	pos = { x = 0, y = 0 }, -- what coordinate to pull art from in assets file
 	display_size = { w = 1 * 71, h = 0.75 * 95 }, -- buddy jolly is square, so this makes the dimensions like square joker
 	rarity = 3, -- rarity, starting from common which equals 1, uncommon = 2, etc
