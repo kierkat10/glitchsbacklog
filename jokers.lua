@@ -4,8 +4,12 @@ SMODS.Atlas {
 	px = 71,
 	py = 71
 }
+SMODS.Sound({
+	key = "weezerriff",
+	path = "weezerriff.wav"
+})
 SMODS.Joker{
-	name = "gbl-buddyjolly",
+	name = "gbl_buddyjolly",
 	key = "buddyjolly",
 	dependencies = {
 		items = { "set_cry_m" } -- buddy jolly is an m joker
@@ -67,6 +71,11 @@ SMODS.Joker{
 				chips = card.ability.extra.chips
 			}
 		end
+	end,
+	add_to_deck = function ()
+		if glitchsbacklog_config.glitchsbacklog and glitchsbacklog_config.glitchsbacklog.buddyjolly_music then
+			play_sound("gbl_weezerriff")
+		end
 	end
 }
 
@@ -77,14 +86,14 @@ SMODS.Atlas {
 	py = 95
 }
 SMODS.Joker{
-	name = "gbl-brickbybrick",
+	name = "gbl_brickbybrick",
 	key = "brickbybrick",
 	config = { extra = { Xmult = 0.25, played_hand = {} } },
 	pos = { x = 0, y = 0 }, -- what coordinate to pull art from in assets file, with (0, 0) being top-left
 	rarity = 3, -- rarity, starting from common which equals 1, uncommon = 2, etc
 	cost = 7, -- self-explanatory
 	blueprint_compat = true,
-	atlas = "jokers",
+	atlas = "gbl_jokers",
 	loc_vars = function(self, info_queue, card)
 		return {
 			vars = { 
