@@ -5,7 +5,6 @@ assert(SMODS.load_file('jokers.lua'))()
 assert(SMODS.load_file('decks.lua'))()
 
 glitchsbacklog_config = SMODS.current_mod.config
-
 local glitchsbacklogConfigTab = function()
 	gbl_nodes = {
 		{
@@ -37,6 +36,45 @@ local glitchsbacklogConfigTab = function()
 			colour = G.C.BLACK,
 		},
 		nodes = gbl_nodes,
+	}
+end
+
+SMODS.current_mod.credits_tab = function()
+
+	local text_scale = 0.9
+	chosen = true
+	return {
+		n = G.UIT.ROOT,
+		config = { align = "cm", padding = 0.2, colour = G.C.BLACK, r = 0.1, emboss = 0.05, minh = 6, minw = 10 },
+		nodes = {
+			{
+				n = G.UIT.R,
+				config = { align = "cm", padding = 0.1, outline_colour = G.C.JOKER_GREY, r = 0.1, outline = 1 },
+				nodes = {
+					{
+				n = G.UIT.R,
+						config = { align = "cm", padding = 0 },
+						nodes = {
+							{ n = G.UIT.T, config = { text = 'Special thanks to', scale = text_scale * 0.6, colour = G.C.GOLD, shadow = true } },
+						}
+					},
+					{
+						n = G.UIT.R,
+						config = { align = "cm", padding = 0 },
+						nodes = {
+							{ n = G.UIT.T, config = { text = 'George the Rat - Created the art for Brick by Brick', scale = text_scale * 0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true } },
+						}
+					},
+					{
+						n = G.UIT.R,
+						config = { align = "cm", padding = 0 },
+						nodes = {
+							{ n = G.UIT.T, config = { text = 'AlexSC - Helped a massive amount with coding this mod', scale = text_scale * 0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true } },
+						}
+					},
+				}
+			}
+		}
 	}
 end
 
