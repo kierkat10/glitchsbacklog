@@ -1,3 +1,6 @@
+----------------------------------------------
+------------MOD CODE -------------------------
+
 SMODS.Atlas {
 	key = "buddyjolly",
 	path = "buddyjolly.png",
@@ -104,8 +107,8 @@ SMODS.Joker{
 	loc_txt = {
 		name = 'Brick by Brick',
 		text = {
-			"One random scored card in {C:attention}winning hand{} permanently",
-			"gains {X:mult,C:white}X#1#{} Mult"
+			"One random scored card in {C:attention}winning hand{}",
+			"permanently gains {X:mult,C:white}X#1#{} Mult"
 		}
 	},
 	calculate = function(self, card, context)
@@ -123,6 +126,106 @@ SMODS.Joker{
 				})
 				card.ability.extra.played_hand = {}
 			end
+		end
+	end
+}
+
+SMODS.Joker{
+	name = "gbl_hotdog", -- name (use prefix)
+	key = "hotdog", -- key (don't use prefix)
+	config = { extra = { Xmult_mod = 2 } },
+	pos = { x = 1, y = 0 }, -- what coordinate to pull art from in assets file, with (0, 0) being top-left
+	rarity = 1, -- rarity, starting from common which equals 1, uncommon = 2, etc
+	cost = 4, -- how much it costs in-game
+	blueprint_compat = true, -- if it can be copied by blueprint
+	atlas = "gbl_jokers", -- what smods atlas key thingy to pull from (use prefix)
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { 
+				card.ability.extra.Xmult_mod,
+			},
+		}
+	end,
+	loc_txt = {
+		name = 'Hotdog',
+		text = {
+			"{X:mult,C:white}X#1#{} Mult",
+			"Destroyed at end of round"
+		}
+	},
+	calculate = function(self, card, context)
+		if context.joker_main then
+			return {
+				Xmult_mod = card.ability.extra.Xmult_mod,
+				message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult_mod } }
+			}
+		end
+		if --i just stole all this from caramel
+		    context.end_of_round
+		    and not context.blueprint
+		    and not context.individual
+		    and not context.repetition
+		    and not context.retrigger_joker
+		then
+		    G.E_MANAGER:add_event(Event({ 
+		            func = function()
+		                play_sound("tarot1")
+		                card.T.r = -0.2
+		                card:juice_up(0.3, 0.4)
+		                card.states.drag.is = true
+		                card.children.center.pinch.x = true
+		                G.E_MANAGER:add_event(Event({
+		                    trigger = "after",
+		                    delay = 0.3,
+		                    blockable = false,
+		                    func = function()
+		                        G.jokers:remove_card(card)
+		                        card:remove()
+		                        card = nil
+		                        return true
+		                    end,
+		                }))
+		                return true
+		            end,
+		        }))
+		        return {
+		            message = localize("k_eaten_ex"),
+		            colour = G.C.FILTER,
+		        }
+		end
+	end
+}
+
+SMODS.Joker{
+	name = "gbl_hotdogstand", -- name (use prefix)
+	key = "hotdogstand", -- key (don't use prefix)
+	config = { extra = {  } },
+	pos = { x = 2, y = 0 }, -- what coordinate to pull art from in assets file, with (0, 0) being top-left
+	rarity = 3, -- rarity, starting from common which equals 1, uncommon = 2, etc
+	cost = 9, -- how much it costs in-game
+	blueprint_compat = true, -- if it can be copied by blueprint
+	atlas = "gbl_jokers", -- what atlas key (smods atlas thingy stated above) to pull from
+	loc_vars = function(self, info_queue, card)
+		info_queue[#info_queue + 1] = G.P_CENTERS.j_gbl_hotdog
+		return {
+			vars = { 
+			},
+		}
+	end,
+	loc_txt = {
+		name = 'Hotdog Stand',
+		text = {
+			"Create a {C:attention}Hotdog{}",
+			"when hand is played",
+			"{C:inactive}(Must have room){}"
+		}
+	},
+	calculate = function(self, card, context)
+		if context.before and not context.repetition and not context.retrigger_joker and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+			local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_gbl_hotdog") -- creates the card in question but puts it in the middle of the screen where it does nothing
+			card:add_to_deck() -- puts the card you just created in the metaphorical "deck" of all cards you currently have, consumables and jokers included
+			card:start_materialize() -- plays the particle animation when jokers spawn in
+			G.jokers:emplace(card) -- puts the card you created in specifically your joker tray so Balatro knows what to do when it gets there
 		end
 	end
 }
