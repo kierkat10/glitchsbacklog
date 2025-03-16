@@ -6,6 +6,8 @@ Requires Cryptid.
 ### Jokers
 - Buddy Jolly
 - Brick by Brick
+- Hotdog
+- Hotdog Stand
 ### Decks
 - Weezer Deck
 ## To-Do List
