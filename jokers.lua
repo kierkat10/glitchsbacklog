@@ -75,11 +75,6 @@ SMODS.Joker{
 			}
 		end
 	end,
-	add_to_deck = function ()
-		if glitchsbacklog_config.glitchsbacklog and glitchsbacklog_config.glitchsbacklog.buddyjolly_music then
-			play_sound("gbl_weezerriff")
-		end
-	end
 }
 
 SMODS.Atlas {
@@ -230,5 +225,62 @@ SMODS.Joker{
 	end
 }
 
+SMODS.Joker{
+    name = "gbl_pixarlamp", -- name (use prefix)
+    key = "pixarlamp", -- key (don't use prefix)
+    config = { extra = {  } },
+    pos = { x = 3, y = 0 }, -- what coordinate to pull art from in assets file, with (0, 0) being top-left
+    rarity = "cry_epic", -- rarity, starting from common which equals 1, uncommon = 2, etc
+    cost = 14, -- how much it costs in-game
+    blueprint_compat = true, -- if it can be copied by blueprint
+    atlas = "gbl_jokers", -- what atlas key (smods atlas thingy stated above) to pull from
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_cry_light
+        return {
+            vars = { 
+            },
+        }
+    end,
+    loc_txt = {
+        name = 'Pixar Lamp',
+        text = {
+            "If played hand is {C;attention}ascended{},",
+            "make all scored cards {C:attention}Glowing{}"
+        }
+    },
+    calculate = function(self, card, context)
+        if
+            context.cardarea == G.jokers
+            and context.before
+            and not context.blueprint_card
+            and not context.retrigger_joker
+            and G.GAME.current_round.current_hand.cry_asc_num ~= 0
+        then
+            local converted = false
+
+            for i = 1, #context.scoring_hand do
+                converted = true
+                local _card = context.scoring_hand[i] -- Fixed `scoring.hand` typo
+                local enhancement = "m_cry_light"
+                if _card.ability.effect ~= "Light Card" then
+                    _card:set_ability(G.P_CENTERS[enhancement], nil, true)
+                end
+                G.E_MANAGER:add_event(Event({
+                    delay = 0.6,
+                    func = function()
+                        _card:juice_up()
+                        play_sound("tarot1")
+                        return true
+                    end
+                }))
+
+            end -- Closing loop correctly
+
+            if converted then
+                return {message = 'Lit Up!', colour = G.C.FILTER} -- Fixed incorrect `)` to `}`
+            end
+        end -- Closing the `if` correctly
+    end -- Closing `calculate` function correctly
+}
 ----------------------------------------------
 ------------MOD CODE END----------------------
