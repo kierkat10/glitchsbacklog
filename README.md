@@ -8,6 +8,8 @@ Requires Cryptid.
 - Brick by Brick
 - Hotdog
 - Hotdog Stand
+- Pixar Lamp
+- Chakra
 ### Decks
 - Weezer Deck
 ## To-Do List
