@@ -72,7 +72,14 @@ SMODS.current_mod.credits_tab = function()
 							{ n = G.UIT.T, config = { text = 'AlexSC - Helped a massive amount with coding this mod', scale = text_scale * 0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true } },
 						}
 					},
-										{
+					{
+						n = G.UIT.R,
+						config = { align = "cm", padding = 0 },
+						nodes = {
+							{ n = G.UIT.T, config = { text = 'Astrapboy - Same as AlexSC; thank you!', scale = text_scale * 0.5, colour = G.C.UI.TEXT_LIGHT, shadow = true } },
+						}
+					},
+					{
 						n = G.UIT.R,
 						config = { align = "cm", padding = 0 },
 						nodes = {
