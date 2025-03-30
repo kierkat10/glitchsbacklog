@@ -282,5 +282,47 @@ SMODS.Joker{
         end -- Closing the `if` correctly
     end -- Closing `calculate` function correctly
 }
+
+SMODS.Joker{
+	name = "gbl_chakra", -- name (use prefix)
+	key = "chakra", -- key (don't use prefix)
+	pos = { x = 4, y = 0 }, -- what coordinate to pull art from in assets file, with (0, 0) being top-left
+	rarity = 3, -- rarity, starting from common which equals 1, uncommon = 2, etc
+	cost = 8, -- how much it costs in-game
+	blueprint_compat = false, -- if it can be copied by blueprint
+	atlas = "gbl_jokers", -- what smods atlas key thingy to pull from (use prefix)
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = { 
+				
+			},
+		}
+	end,
+	loc_txt = {
+		name = 'Chakra',
+		text = {
+			"If played hand contains",
+			"a {C:attention}Straight Flush{}, make all",
+			"unscored cards {C:dark_edition}Astral{}"
+		}
+	},
+	calculate = function(self, card, context)
+		if context.before and not context.blueprint and not context.retrigger_joker then
+			if next(context.poker_hands["Straight Flush"]) and #context.scoring_hand ~= #context.full_hand then
+				for k, v in ipairs(context.full_hand) do
+					if not SMODS.in_scoring(v, context.scoring_hand) and (not v.edition or v.edition and v.edition.type ~= "e_cry_astral") then
+						v:set_edition("e_cry_astral", true)
+						G.E_MANAGER:add_event(Event({
+							func = function()
+								v:juice_up()
+								return true
+							end
+						}))
+					end
+				end
+			end
+		end
+	end,
+}
 ----------------------------------------------
 ------------MOD CODE END----------------------
