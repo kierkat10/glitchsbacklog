@@ -346,7 +346,7 @@ SMODS.Joker{
 SMODS.Joker{
     name = "gbl_inequality_alligator",
     key = "inequality_alligator",
-    pos = { x = 7, y = 0 },
+    pos = { x = 6, y = 0 },
     rarity = 3,
     cost = 9,
     config = { extra = { mult = 0 } },
