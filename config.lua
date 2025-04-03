@@ -1,3 +1,0 @@
-return {
-	["buddyjollysfx"] = true,
-}
