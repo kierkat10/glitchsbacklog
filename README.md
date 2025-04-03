@@ -15,4 +15,4 @@ Requires Cryptid.
 ### Decks
 - Weezer Deck
 ## To-Do List
-- Just keep adding more stuff (next planned things to add are probably Dad Joke, Inequality Alligator, and Opposite Day)
+- Just keep adding more stuff (next planned things to add are probably Dad Joke and Opposite Day)
