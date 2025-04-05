@@ -71,8 +71,8 @@ return {
 				name = 'Electric Joker',
 				text = {
 					"If {C:attention}played hand{} has only {C:attention}two{} cards and",
-					"is a {C:attention}Pair{}, swap one {C:attention}modification{} from",
-					"the second card to the first card",
+					"is a {C:attention}Pair{}, swap one random {C:attention}modification{}",
+					"between the two cards",
 					"{C:inactive}({}{C:attention}Enhancement{}{C:inactive}, {}{C:attention}Edition{}{C:inactive}, or {}{C:attention}Seal{}{C:inactive}){}",
 					
 				}
