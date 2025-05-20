@@ -6,7 +6,7 @@
 	"description": "A collection of currently Pending suggestions by Glitchkat10 for the popular Cryptid mod, as they are too damn slow.",
 	"prefix": "gbl",
 	"main_file": "main.lua",
-	"priority": -2147483647,
+	"priority": 4,
 	"badge_colour": "7b4193",
 	"badge_text_colour": "FFFFFF",
 	"version": "1.2.1",
